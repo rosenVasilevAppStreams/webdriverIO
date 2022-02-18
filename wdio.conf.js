@@ -76,15 +76,13 @@ exports.config = {
         maxInstances: 5,
         //
         browserName: 'chrome',
-        acceptInsecureCerts: true
+        acceptInsecureCerts: true,
+        host: 'localhost',
+    port: 8080
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
-    },
-    {
-        maxInstances: 2,
-        browserName: 'firefox'
     }
     ],
     //
