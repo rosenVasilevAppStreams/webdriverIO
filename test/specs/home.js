@@ -1,70 +1,86 @@
-import HomePage from '../pages/home-page';
-import allureReporter from '@wdio/allure-reporter';
+import HomePage from "../pages/home-page";
+
+describe("Home", () => {
 
 
-describe('Home', () => {
+//   before(async () =>{ // it is run once before all the tests 
+// console.log('This could be used for test setup')
+//  //open url
+//  await HomePage.open();
+//   })
 
-  // before(async () => {
-  //   console.log('THIS COULD BE USED FOR TEST SETUP');
-  // })
+  beforeEach(async () =>{ // it is run once before all the tests 
+    console.log('This runs before each test')
+     //open url
+     await HomePage.open();
+     //login
+      })
 
-  beforeEach(async () => {
-    console.log('THIS RUNS BEFORE EACH TEST');
+//       after(async () =>{ // it is run once before all the tests 
+// console.log('This could be used for test cleanup')
+//  //open url
+//  await HomePage.open();
+//   })
 
-    // Open URL
-    await HomePage.open();
-  })
+//   afterEach(async () =>{ // it is run once before all the tests 
+//     console.log('This runs after each test')
+//      logout
+   
+//       })
 
-  // after(async () => {
-  //   console.log('THIS COULD BE USED FOR TEST CLEANUP');
-  // })
+  it("open URL and assert title", async () => {
+  
 
-  // afterEach(async () => {
-  //   console.log('THIS RUNS AFTER EACH TEST');
-  // })
-
-  it('Open URL & assert title', async () => {
-    allureReporter.addSeverity("minor");
-
-    // Assert title
-    await expect(browser).toHaveTitle('Practice E-Commerce Site – Automation Bro');
+    //assert title
+    await expect(browser).toHaveTitle(
+      "Practice E-Commerce Site – Automation Bro"
+    );
   });
 
-  it('Open About Page & assert URL', async () => {
-    // Open About Page
-    await browser.url('https://practice.automationbro.com/about');
-
-    // Assert URL
-    await expect(browser).toHaveUrl('https://practice.automationbro.com/about/');
+  it("open About page and assert url", async () => {
+    await browser.url("https://practice.automationbro.com/about/");
+    await expect(browser).toHaveUrl(
+      "https://practice.automationbro.com/about/"
+    );
   });
 
-  it('Click get started btn & assert url contains get-started text', async () => {
-    // Click get started button
+
+  it("open home page, click get started and assert that url contains get started text", async () => {
+  
+
+    //click get started button
     await HomePage.btnGetStarted.click();
 
-    // Assert url contains get-started text
-    await expect(browser).toHaveUrlContaining('get-started');
+    //assert url contains get started text
+    await expect(browser).toHaveUrlContaining("get-started");
   });
 
-  it('Click logo & assert url DOES NOT contains get-started text', async () => {
-    allureReporter.addFeature("Logo Verification");
+  it("click the logo and assert that url does not contain get started text", async () => {
+    //open home page
+    await browser.url("https://practice.automationbro.com/get-started/");
+    //click get started button
 
-    // Click logo
     await HomePage.imageLogo.click();
 
-    // Assert url does not contains get-started text
-    await expect(browser).not.toHaveUrlContaining('get-started');
+    //assert url does not contains get started texts
+    await expect(browser).not.toHaveUrlContaining("get-started");
   });
 
-  it('Find heading element & assert the text', async () => {
-    // find heading element
+  it("Find the heading element and get the text", async () => {
+ 
+    
+
+    //click get started button
+
+    //find heading element
     const headingEl = await HomePage.txtHeading;
 
-    // get the text
+    //get the text
     const headingText = await headingEl.getText();
 
-    // Assert the text
-    await expect(headingText).toEqual('Think different. Make different.'); // Jest library
-    // await expect(headingEl).toHaveText('Think different. Make different!'); // wdio expect assertion
+    //assert the text
+    //await expect(headingText).toHaveText('Think different. Make different.'); this assertion includes the getTEXT!
+    await expect(headingText).toEqual("Think different. Make different."); //Jest library
+    //await expect(headingText).toHaveText('Think different. Make different.'); // wdio library
   });
 });

@@ -1,19 +1,21 @@
 import BlogPage from '../pages/blog-page';
 
-describe("Blog", () => {
-  it("Get the list of all Recent Posts & assert the length of each list item > 1 & assert the total count = 4", async () => {
-    await BlogPage.open();
+describe('Blog',  () => {
+    it('Get the list of all recent posts', async () => {
 
-    // Get the Recent Post List Elements
-    const recentPostsList = await BlogPage.listRecentPosts;
+        await BlogPage.open();
 
-    // Loop through the list and assert the text length is greater than 10
-    for (const item of recentPostsList) {
-      const text = await item.getText();
-      await expect(text.length).toBeGreaterThan(10);
-    }
+        //get the recent post list elements
+        const recentPostLists = await BlogPage.listRecentPosts; //this returns 5 elements
 
-    // Assert the total length of the list is 4
-    await expect(recentPostsList).toHaveLength(4);
-  });
-});
+        //loop thru the list and assert  the text lenght is greater than 10
+        for(const item of recentPostLists){
+
+            const text = await item.getText();
+            await expect(text.length).toBeGreaterThan(10);
+                }
+        //assert the total list length is 5
+        await expect(recentPostLists).toHaveLength(5);
+
+    })
+})

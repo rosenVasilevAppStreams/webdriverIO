@@ -1,26 +1,28 @@
 import NavComponent from './components/nav-comp';
 
 class HomePage {
-  open() {
-    return browser.url('/');
-  }
 
-  get btnGetStarted() {
-    return $('#get-started');
-  }
+    open(){
+        browser.url('/');  //go to the base Url
+    }
 
-  get imageLogo() {
-    return $('//img[@alt="Practice E-Commerce Site"]');
-  }
+    get btnGetStarted(){  //getter function
+        return $('#get-started');
+    }
 
-  get txtHeading() {
-    return $('.elementor-widget-container h1');
-  }
+    get imageLogo(){
+        return $('.custom-logo-link');
+    }
 
-  get NavComponent() {
-    return NavComponent;
-  }
+    get txtHeading(){
+        return $('.elementor-widget-container h1');
+    }
+
+    get NavComponent(){
+        return NavComponent;
+    }
 
 }
 
-export default new HomePage();
+export default new HomePage(); //default means that this is the only class we want to import 
+//new is initializing the class

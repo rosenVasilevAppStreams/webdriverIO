@@ -1,60 +1,49 @@
-const path = require('path');
+const path = require('path'); //importing path package, it is included in node 
 
-describe("Upload", () => {
-  it("Upload file and assert success message", async () => {
-    await browser.url("/cart");
+describe('Describe tests', () =>{
+it('Simple upload', async () =>{
+//open url
 
-    await browser.execute(
-      "document.querySelector('#upfile_1').removeAttribute('class')"
-    );
+await browser.url('https://the-internet.herokuapp.com/upload');
 
-    const inputFile = await $("#upfile_1");
-    const uploadBtn = await $("#upload_1");
+//store test file path
+const filePath = path.join(__dirname, '../data/download, (1).jpeg'); // __dirname is the absolute path for the current dir - admin/../test/spec/upload/js and
+// .. is for one level up to the data dir
 
-    const remoteFilePath = await browser.uploadFile("logo.png");
-    await inputFile.setValue(remoteFilePath);
-    await uploadBtn.click();
+//upload test file
+const remoteFilePath = await browser.uploadFile(filePath);
 
-    const successMessage = await $("#wfu_messageblock_header_1_label_1");
-    await expect(successMessage).toHaveTextContaining("uploaded successfully");
-  });
+//set file path value in the input field
+await $('#file-upload').setValue(remoteFilePath);
+await $('#file-submit').click();
 
-  it.only('Simple upload test', async () => {
-    // Open url
-    await browser.url('https://the-internet.herokuapp.com/upload');
+//assertion
+ await expect($('h3')).toHaveText('File Uploaded!');
 
-    // store test file path
-    const filePath = path.join(__dirname, '../data/logotitle.png');
+});
+it.only('upload in a hidden input field', async ()=>{
+//open url
+await browser.url('/cart/');
 
-    // use browser.uploadFile to upload the test file
-    const remoteFilePath = await browser.uploadFile(filePath);
+//store test file path
+const filePath = path.join(__dirname, '../data/download, (1).jpeg'); // __dirname is the absolute path for the current dir - admin/../test/spec/upload/js and
+// .. is for one level up to the data dir
 
-    // set file path value in the input field
-    await $('#file-upload').setValue(remoteFilePath);
-    await $('#file-submit').click(); // click the submit button
+//upload test file
+const remoteFilePath = await browser.uploadFile(filePath);
 
-    // assertion
-    await expect($('h3')).toHaveText('File Uploaded!');
-  });
+//remove the hidden class 
+await browser.execute("document.querySelector('#upfile_1').className = ' '"); //the code in the execute() was written in the console of the browser
+// #upfile_1 is an id that was in the  <input type=file ..> block, we use it to show the choose file button by removing the hidden class
+//browser.execute executes JS in the browser
 
-  it.only('Upload on a hidden input field', async () => {
-    // Open url
-    await browser.url('/cart/');
+//set file path value in the input field
+await $('#upfile_1').setValue(remoteFilePath);
+await $('#upload_1').click();
 
-    // store test file path
-    const filePath = path.join(__dirname, '../data/logotitle.png');
+//assertion
+await expect($('#wfu_messageblock_header_1_label_1')).toHaveTextContaining('uploaded successfully');
 
-    // upload test file
-    const remoteFilePath = await browser.uploadFile(filePath);
 
-    // remove hidden class
-    await browser.execute("document.querySelector('#upfile_1').className = ''");
-
-    // set file path value in the input field
-    await $('#upfile_1').setValue(remoteFilePath);
-    await $('#upload_1').click(); // click the upload button
-
-    // assertion
-    await expect($('#wfu_messageblock_header_1_label_1')).toHaveTextContaining('uploaded successfully');
-  });
+});
 });

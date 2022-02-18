@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "webdriveio",
+			"path": "../gitHub/webdriverIO/webdriveio"
+		},
+		{
+			"name": "webdriverIO",
+			"path": "../gitHub/webdriverIO/appStreamsgithubWdio/webdriverIO"
+		}
+	],
+	"settings": {}
+}
